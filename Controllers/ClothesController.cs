@@ -15,6 +15,36 @@ namespace ClosetControl.Web.Controllers
             _service = service;
         }
 
+        [HttpPost]
+        [Route("Create")]
+        public ActionResult Post(Clothes clothes)
+        {
+            var postResult = _service.Create(clothes);
+            if (postResult.Success)
+                return Ok(postResult);
+            return BadRequest(postResult);
+        }
+
+        [HttpGet]
+        [Route("FindByKind")]
+        public ActionResult FindByKind(string clothesType)
+        {
+            var getThatKindResult = _service.FindByType(clothesType);
+            if (getThatKindResult.Success)
+                return Ok(getThatKindResult);
+            return BadRequest(getThatKindResult);
+        }
+
+        [HttpGet]
+        [Route("FindBySeason")]
+        public ActionResult FindBySeason(int season)
+        {
+            var getThatKindResult = _service.FindBySeason(season);
+            if (getThatKindResult.Success)
+                return Ok(getThatKindResult);
+            return BadRequest(getThatKindResult);
+        }
+
         [HttpGet]
         [Route("GetAll")]
         public IActionResult Get()
@@ -25,14 +55,15 @@ namespace ClosetControl.Web.Controllers
             return BadRequest(getResult.MessageList);
         }
 
-        [HttpPost]
-        [Route("Create")]
-        public ActionResult Post(Clothes clothes)
+
+        [HttpGet]
+        [Route("GetOne")]
+        public ActionResult GetById(Guid id)
         {
-            var postResult = _service.Create(clothes);
-            if(postResult.Success)
-                return Ok(postResult);
-            return BadRequest(postResult);
+            var getOneResult = _service.FindOne(id);
+            if (getOneResult.Success)
+                return Ok(getOneResult);
+            return BadRequest(getOneResult);
         }
 
         [HttpPut]
@@ -53,26 +84,6 @@ namespace ClosetControl.Web.Controllers
             if (deleteResult.Success)
                 return Ok(deleteResult);
             return BadRequest(deleteResult);
-        }
-
-        [HttpGet]
-        [Route("GetOne")]
-        public ActionResult GetById(Guid id)
-        {
-            var getOneResult = _service.FindOne(id);
-            if (getOneResult.Success)
-                return Ok(getOneResult);
-            return BadRequest(getOneResult);
-        }
-
-        [HttpPost]
-        [Route("FindByKind")]
-        public ActionResult FindByKind(string clothesType)
-        {
-            var getThatKindResult = _service.FindSome(clothesType);
-            if (getThatKindResult.Success)
-                return Ok(getThatKindResult);
-            return BadRequest(getThatKindResult);
         }
     }
 }
