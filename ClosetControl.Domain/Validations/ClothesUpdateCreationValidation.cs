@@ -6,11 +6,9 @@ namespace ClosetControl.Domain.Validations
 {
     public class ClothesUpdateCreationValidation : AbstractValidator<Clothes>, IClothesUpdateCreationValidation
     {
-        private readonly ILiteDbContext _liteDbContext;
-        public ClothesUpdateCreationValidation(ILiteDbContext liteDbContext)
+        public ClothesUpdateCreationValidation()
         {
             VerifyCreation();
-            _liteDbContext = liteDbContext;
         }
 
         private void VerifyCreation()

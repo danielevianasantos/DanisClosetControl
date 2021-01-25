@@ -9,8 +9,8 @@ namespace ClosetControl.Web.Controllers
     [Route("api/Clothes")]
     public class ClothesController : ControllerBase
     {
-        protected readonly ILiteDbClothesService _service;
-        public ClothesController(ILiteDbClothesService service)
+        protected readonly IClothesService _service;
+        public ClothesController(IClothesService service)
         {
             _service = service;
         }

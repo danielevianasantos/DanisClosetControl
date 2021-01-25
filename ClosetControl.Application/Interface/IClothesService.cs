@@ -4,7 +4,7 @@ using System;
 
 namespace ClosetControl.Application.Interface
 {
-    public interface ILiteDbClothesService
+    public interface IClothesService
     {
         Response<Clothes> Create(Clothes clothes);
         

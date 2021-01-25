@@ -1,10 +1,4 @@
-using ClosetControl.Application.Interface;
-using ClosetControl.Application.Service;
-using ClosetControl.Domain.Entities;
-using ClosetControl.Domain.Interfaces;
-using ClosetControl.Domain.Validations;
-using ClosetControl.Infra.Repository;
-using FluentValidation;
+using ClosetControl.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,10 +20,7 @@ namespace ClosetControl.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ILiteDbContext, LiteDbContext>();
-            services.AddScoped<ILiteDbClothesService, LiteDbClothesService>();
-            services.AddScoped<IClothesDeleteValidation, ClothesDeleteValidation>();
-            services.AddScoped<IClothesUpdateCreationValidation, ClothesUpdateCreationValidation>();
+            services.DependecyInjections();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

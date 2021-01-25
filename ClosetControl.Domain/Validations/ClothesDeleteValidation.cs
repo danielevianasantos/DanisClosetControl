@@ -1,5 +1,4 @@
-﻿using ClosetControl.Domain.Entities;
-using ClosetControl.Domain.Interfaces;
+﻿using ClosetControl.Domain.Interfaces;
 using FluentValidation;
 using System;
 
@@ -7,20 +6,19 @@ namespace ClosetControl.Domain.Validations
 {
     public class ClothesDeleteValidation : AbstractValidator<Guid>, IClothesDeleteValidation
     {
-        private readonly ILiteDbContext _liteDbContext;
-        public ClothesDeleteValidation(ILiteDbContext liteDbContext)
+        private readonly IClothesRepository _clothesRepository;
+        public ClothesDeleteValidation(IClothesRepository clothesRepository)
         {
             VerifyIfExistent();
-            _liteDbContext = liteDbContext;
+            _clothesRepository = clothesRepository;
         }
 
         private void VerifyIfExistent()
         {
             RuleFor(piece => piece).Must(id =>
               {
-                  return _liteDbContext.Database.GetCollection<Clothes>("Clothes").FindOne(piece => piece.Id == id) != null;
+                  return _clothesRepository.IsExistent(id);
               }).WithMessage("There's no such piece in this closet.");
-            
         }
     }
 }
